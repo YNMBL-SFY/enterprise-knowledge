@@ -1,0 +1,24 @@
+# 企业知识库 systemd 常驻服务
+# 作用：开机自启 + 崩溃自动重启 uvicorn（监听 127.0.0.1:1111，由 nginx 对外转发）
+# 部署：复制到 /etc/systemd/system/enterprise-knowledge.service 后：
+#       systemctl daemon-reload && systemctl enable --now enterprise-knowledge
+
+[Unit]
+Description=Enterprise Knowledge Base (FastAPI + Milvus/Zilliz RAG)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/enterprise-knowledge
+Environment=UV_CACHE_DIR=/opt/enterprise-knowledge/.uv-cache
+# 注意：ExecStart 使用 uv 绝对路径，如 uv 安装位置不同请修改（root 用户默认 /root/.local/bin/uv）
+ExecStart=/root/.local/bin/uv run uvicorn app.main:app --host 127.0.0.1 --port 1111
+Restart=always
+RestartSec=5
+# 日志统一由 journald 管理：journalctl -u enterprise-knowledge -f
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

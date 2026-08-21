@@ -1,0 +1,19 @@
+# 环境变量与密钥
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+uv.lock.bak
+.uv-cache/
+
+# 运行时数据
+storage/
+volumes/
+.test-tmp/
+
+# IDE
+.idea/
+.vscode/
+*.swp

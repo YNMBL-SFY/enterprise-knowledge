@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>企业知识库</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div id="toasts" class="toasts" aria-live="polite"></div>
+		<div class="shell">
+			<header class="topbar">
+				<div class="brand">
+					<strong>Knowledge Hub</strong>
+					<span>企业知识中台 Python 版</span>
+				</div>
+				<label class="identity">
+					<span>演示身份</span>
+					<select id="userSelect"></select>
+				</label>
+				<div id="health" class="health">检查中</div>
+			</header>
+
+			<main class="layout">
+				<aside class="panel">
+					<div class="panel-heading">
+						<div>
+							<span>KNOWLEDGE BASE</span>
+							<h1>知识库</h1>
+						</div>
+						<button id="refreshDocuments" class="secondary">刷新</button>
+					</div>
+					<form id="documentForm" class="document-form">
+						<input id="editingDocumentId" type="hidden" />
+						<label>文档标题<input id="documentTitle" maxlength="120" placeholder="例如：蓝鲸科技退款规则" required /></label>
+						<label>归属部门<input id="departmentId" maxlength="64" value="customer-service" placeholder="例如：customer-service" required /></label>
+						<label>可见范围
+							<select id="visibility">
+								<option value="company">企业内公开</option>
+								<option value="department">仅归属部门</option>
+							</select>
+						</label>
+						<label class="file-picker">
+							<span>Markdown 文件</span>
+							<input id="documentFile" type="file" accept=".md,text/markdown" required />
+						</label>
+						<p id="fileHint" class="file-hint"></p>
+						<button id="saveButton" type="submit">保存文档</button>
+						<p id="saveMessage" class="save-message"></p>
+					</form>
+					<div id="documents" class="documents"></div>
+				</aside>
+
+				<section class="panel query-panel">
+					<div class="panel-heading">
+						<div>
+							<span>AI RETRIEVAL</span>
+							<h1>知识问答</h1>
+						</div>
+					</div>
+					<div id="conversation" class="conversation">
+						<div class="empty">选择身份并导入样例文档后，可以询问企业知识库。</div>
+					</div>
+					<form id="queryForm" class="composer">
+						<textarea id="question" maxlength="1000" rows="3" placeholder="例如：3000 元退款需要人工审核吗？">3000 元退款需要人工审核吗？</textarea>
+						<button id="sendButton" type="submit">发送</button>
+					</form>
+				</section>
+			</main>
+		</div>
+
+		<!-- Markdown 预览 / 编辑器抽屉（仅管理员） -->
+		<div id="editorOverlay" class="editor-overlay"></div>
+		<aside id="editorDrawer" class="editor-drawer" aria-hidden="true">
+			<header class="editor-header">
+				<div class="editor-heading">
+					<span>MARKDOWN 编辑器</span>
+					<h2 id="editorTitle">编辑文档</h2>
+				</div>
+				<button id="editorClose" class="icon-btn" title="关闭" aria-label="关闭">✕</button>
+			</header>
+			<div id="editorMeta" class="editor-meta"></div>
+			<textarea id="editorContent" class="editor-content" spellcheck="false"
+				placeholder="# 在此编辑 Markdown 内容…"></textarea>
+			<footer class="editor-footer">
+				<button id="editorCancel" class="secondary">取消</button>
+				<button id="editorSave">保存并发布新版本</button>
+			</footer>
+		</aside>
+
+		<script src="app.js"></script>
+	</body>
+</html>
