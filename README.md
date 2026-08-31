@@ -1,7 +1,6 @@
 # 企业知识库（enterprise-knowledge）
 
-本目录是《Agent 编程实战 · 第二章》综合项目 **12-enterprise-knowledge-base**（Python 版）的逐模块重建，
-功能与源项目保持一致：FastAPI 后端 + 原生静态前端 + Milvus 混合检索 + 文档版本更新 + 权限隔离 +
+企业级知识库搭建demo：FastAPI 后端 + 原生静态前端 + Milvus 混合检索 + 文档版本更新 + 权限隔离 +
 Rerank 精排 + 来源引用 + 拒答。
 
 ## 功能拆解对照清单
